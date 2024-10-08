@@ -18,7 +18,29 @@ while ($row = $reaction_stmt->fetch(PDO::FETCH_ASSOC)) {
 echo "<div class='flex justify-center space-x-6 mt-3'>";
 foreach (['like', 'love', 'haha', 'sad', 'angry'] as $reaction) {
     $count = isset($reaction_counts[$reaction]) ? $reaction_counts[$reaction] : 0;
-    echo "<button onclick=\"reactToPost({$post_row['post_id']}, '{$reaction}')\" class='bg-gray-300 p-1 rounded hover:bg-gray-400'>{$reaction} ({$count})</button>";
+    
+    // Définir les emojis correspondants
+    $emoji = '';
+    switch ($reaction) {
+        case 'like':
+            $emoji = '👍'; // Pouce en l'air
+            break;
+        case 'love':
+            $emoji = '❤️'; // Cœur
+            break;
+        case 'haha':
+            $emoji = '😂'; // Rire
+            break;
+        case 'sad':
+            $emoji = '😢'; // Triste
+            break;
+        case 'angry':
+            $emoji = '😡'; // En colère
+            break;
+    }
+
+    echo "<button onclick=\"reactToPost({$post_row['post_id']}, '{$reaction}')\" class='border p-1 rounded '>{$emoji} ({$count})</button>";
 }
+
 echo "</div>";
 ?>
